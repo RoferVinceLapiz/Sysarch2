@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard - CCS</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: #f0f0f0; font-family: 'Segoe UI', Arial, sans-serif; }
+
+        .admin-navbar {
+            background: #1e3a8a;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            height: 48px;
+        }
+        .admin-navbar-title { font-weight: 700; font-size: 14px; white-space: nowrap; }
+        .admin-nav-links { display: flex; align-items: center; gap: 2px; }
+        .admin-nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 12px;
+            padding: 6px 8px;
+            border-radius: 4px;
+            transition: background 0.2s;
+            white-space: nowrap;
+        }
+        .admin-nav-links a:hover { background: rgba(255,255,255,0.15); }
+        .admin-logout-btn {
+            background: #f59e0b !important;
+            color: #fff !important;
+            font-weight: 700 !important;
+            border-radius: 5px !important;
+            padding: 6px 14px !important;
+        }
+        .admin-logout-btn:hover { background: #d97706 !important; }
+
+        .flash-admin.success { background: #d1fae5; color: #065f46; padding: 10px 20px; font-size: 13px; display: block; }
+        .flash-admin.error   { background: #fee2e2; color: #991b1b; padding: 10px 20px; font-size: 13px; display: block; }
+
+        .admin-body { display: flex; gap: 18px; padding: 18px; align-items: flex-start; }
+
+        .admin-card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.09);
+            overflow: hidden;
+        }
+        .admin-card-header {
+            background: #1e3a8a;
+            color: #fff;
+            font-weight: 700;
+            font-size: 13px;
+            padding: 10px 16px;
+        }
+        .admin-card-body { padding: 16px; }
+
+        .stats-col { flex: 0 0 300px; }
+        .stat-item { font-size: 13px; margin-bottom: 8px; color: #333; }
+        .stat-item strong { color: #1e3a8a; }
+        .stat-divider { height: 1px; background: #eee; margin: 12px 0; }
+        #courseChart { max-width: 100%; margin-top: 8px; }
+        .chart-legend { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
+        .legend-item { display: flex; align-items: center; gap: 4px; font-size: 11px; color: #444; }
+        .legend-dot { width: 12px; height: 12px; border-radius: 2px; flex-shrink: 0; }
+
+        .announce-col { flex: 1; }
+        .announce-form textarea {
+            width: 100%;
+            border: 1.5px solid #ddd;
+            border-radius: 6px;
+            padding: 10px;
+            font-size: 13px;
+            resize: vertical;
+            min-height: 80px;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            color: #333;
+        }
+        .announce-form textarea:focus { outline: none; border-color: #1e3a8a; }
+        .announce-submit {
+            margin-top: 10px;
+            padding: 8px 22px;
+            background: #16a34a;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+        }
+        .announce-submit:hover { background: #15803d; }
+
+        .posted-title { font-size: 18px; font-weight: 800; margin: 20px 0 12px; color: #111; }
+        .announce-item { border-bottom: 1px solid #eee; padding: 12px 0; }
+        .announce-item:last-child { border-bottom: none; }
+        .announce-meta {
+            font-weight: 700;
+            font-size: 13px;
+            color: #1e3a8a;
+            margin-bottom: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .announce-text { font-size: 13px; color: #444; line-height: 1.6; }
+        .delete-ann-btn {
+            background: none;
+            border: none;
+            color: #dc2626;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 0;
+        }
+        .delete-ann-btn:hover { text-decoration: underline; }
+        .no-announce { font-size: 13px; color: #aaa; margin-top: 8px; }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<div class="admin-navbar">
+    <span class="admin-navbar-title">College of Computer Studies Admin</span>
+    <div class="admin-nav-links">
+        <a href="/admin/dashboard">Home</a>
+        <a href="#">Search</a>
+        <a href="#">Students</a>
+        <a href="#">Sit-in</a>
+        <a href="#">View Sit-in Records</a>
+        <a href="#">Sit-in Reports</a>
+        <a href="#">Feedback Reports</a>
+        <a href="#">Reservation</a>
+        <a href="/admin/logout" class="admin-logout-btn">Log out</a>
+    </div>
+</div>
+
+<!-- FLASH MESSAGES -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}{% for category, message in messages %}
+        <div class="flash-admin {{ category }}">{{ message }}</div>
+    {% endfor %}{% endif %}
+{% endwith %}
+
+<!-- BODY -->
+<div class="admin-body">
+
+    <!-- LEFT: Statistics -->
+    <div class="stats-col">
+        <div class="admin-card">
+            <div class="admin-card-header">📊 Statistics</div>
+            <div class="admin-card-body">
+                <div class="stat-item">Students Registered: <strong>{{ total_students }}</strong></div>
+                <div class="stat-item">Currently Sit-in: <strong>{{ current_sitin }}</strong></div>
+                <div class="stat-item">Total Sit-in: <strong>{{ total_sitin }}</strong></div>
+                <div class="stat-divider"></div>
+                <canvas id="courseChart"></canvas>
+                <div class="chart-legend" id="chartLegend"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- RIGHT: Announcements -->
+    <div class="announce-col">
+        <div class="admin-card">
+            <div class="admin-card-header">📢 Announcement</div>
+            <div class="admin-card-body">
+
+                <form method="POST" action="/admin/announce" class="announce-form">
+                    <textarea name="message" placeholder="New Announcement"></textarea>
+                    <br>
+                    <button type="submit" class="announce-submit">Submit</button>
+                </form>
+
+                <div class="posted-title">Posted Announcement</div>
+
+                {% if announcements %}
+                    {% for a in announcements %}
+                    <div class="announce-item">
+                        <div class="announce-meta">
+                            <span>CCS Admin | {{ a['posted_at'][:10] }}</span>
+                            <form method="POST" action="/admin/delete-announcement/{{ a['id'] }}" style="display:inline;">
+                                <button class="delete-ann-btn" type="submit">✕ Delete</button>
+                            </form>
+                        </div>
+                        {% if a['message'] %}
+                            <div class="announce-text">{{ a['message'] }}</div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="no-announce">No announcements yet.</p>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    course_stats
+    const labels = courseStats.map(c => c.course);
+    const data   = courseStats.map(c => c.count);
+    const colors = [
+        '#3b82f6','#ef4444','#f59e0b','#10b981',
+        '#8b5cf6','#ec4899','#14b8a6','#f97316',
+        '#6366f1','#84cc16','#06b6d4','#a855f7'
+    ];
+
+    if (labels.length > 0) {
+        const ctx = document.getElementById('courseChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: data,
+                    backgroundColor: colors.slice(0, labels.length),
+                    borderWidth: 1
+                }]
+            },
+            options: { plugins: { legend: { display: false } } }
+        });
+
+        const legend = document.getElementById('chartLegend');
+        labels.forEach((label, i) => {
+            const item = document.createElement('div');
+            item.className = 'legend-item';
+            item.innerHTML = `<span class="legend-dot" style="background:${colors[i]}"></span>${label}`;
+            legend.appendChild(item);
+        });
+    } else {
+        document.getElementById('courseChart').style.display = 'none';
+        document.getElementById('chartLegend').innerHTML = '<p style="font-size:12px;color:#aaa;">No student data yet.</p>';
+    }
+</script>
+
+</body>
+</html>

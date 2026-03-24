@@ -1,0 +1,830 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f0f2f5;
+    color: #333;
+}
+
+/* ================= NAVBAR ================= */
+.navbar, .dash-navbar {
+    background: #4b2c80;
+    color: white;
+    padding: 12px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.navbar span, .dash-title {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.nav-menu a, .dash-menu a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+    font-size: 14px;
+    transition: color 0.3s;
+}
+
+.nav-menu a:hover, .dash-menu a:hover {
+    color: #fdb813;
+}
+
+.active-link {
+    color: #fdb813 !important;
+    font-weight: bold;
+}
+
+.logout-btn {
+    background: #fdb813;
+    color: #4b2c80 !important;
+    padding: 6px 16px;
+    border-radius: 4px;
+    font-weight: bold;
+    margin-left: 20px;
+}
+
+.logout-btn:hover {
+    background: #e0a800 !important;
+}
+
+/* ================= LOGIN ================= */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 100px);
+    padding: 20px;
+}
+
+.logo img {
+    width: 600px;
+    height: 600px;
+}
+
+.login-box {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    margin-left: 60px;
+}
+
+.input-group-login {
+    margin-bottom: 16px;
+}
+
+.input-group-login label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+/* ================= INPUTS ================= */
+input[type="text"],
+input[type="password"],
+input[type="email"],
+.register-input-field {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+}
+
+input:focus, .register-input-field:focus {
+    border-color: #4b2c80;
+    outline: none;
+}
+
+/* ================= BUTTONS ================= */
+.login-btn, .register-btn {
+    background: #4b2c80;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+    width: 100%;
+}
+
+.login-btn:hover,
+.register-btn:hover {
+    background: #361d61;
+}
+
+/* ================= FLASH ================= */
+.flash {
+    padding: 10px 20px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    font-weight: bold;
+    display: block;
+}
+
+.flash.success {
+    background: #d4edda;
+    color: #155724;
+}
+
+.flash.error {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+/* ================= REGISTER ================= */
+.register-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 30px;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+}
+
+.back-btn {
+    padding: 6px 14px;
+    background: #4b2c80;
+    color: #fff;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.register-layout {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 30px;
+}
+
+.side-col {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.center-col {
+    flex: 1;
+    max-width: 500px;
+}
+
+.uc-logo-img,
+.register-char-img {
+    width: 220px;
+}
+
+.register-form {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    padding: 28px;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 18px;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.input-group input,
+.input-group select {
+    padding: 10px 12px;
+    border: 1.5px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+
+.input-group input:focus,
+.input-group select:focus {
+    border-color: #4b2c80;
+    outline: none;
+}
+
+.input-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #4b2c80;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    margin-bottom: 4px;
+}
+
+.error-msg {
+    color: #dc2626;
+    font-size: 11px;
+    min-height: 14px;
+}
+
+.input-error {
+    border-color: #dc2626 !important;
+}
+
+.remember-me-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+}
+
+.register {
+    text-align: center;
+    font-size: 13px;
+    margin-top: 12px;
+}
+
+.register a {
+    color: #4b2c80;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+/* ================= PROFILE (OLD) ================= */
+.profile-wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.profile-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    padding: 30px 40px;
+    max-width: 700px;
+    width: 100%;
+}
+
+.profile-title {
+    text-align: center;
+    font-size: 26px;
+    font-weight: bold;
+    color: #4b2c80;
+    margin-bottom: 20px;
+}
+
+.two-column {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 30px;
+}
+
+.profile-field {
+    display: flex;
+    gap: 10px;
+}
+
+.field-icon {
+    margin-top: 10px;
+    color: #777;
+}
+
+.field-body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.profile-input {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 10px;
+}
+
+.profile-input:focus {
+    border-color: #4b2c80;
+    outline: none;
+}
+
+.readonly-input {
+    background: #f5f5f5;
+    cursor: not-allowed;
+}
+
+.profile-save {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+/* ================= STUDENTS TABLE ================= */
+.students-wrapper {
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.students-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    padding: 30px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.students-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.students-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #4b2c80;
+}
+
+.search-input {
+    padding: 8px 14px;
+    border: 1.5px solid #ddd;
+    border-radius: 6px;
+    font-size: 13px;
+    width: 220px;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #4b2c80;
+}
+
+.students-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.students-table thead tr {
+    background: #4b2c80;
+    color: white;
+}
+
+.students-table th,
+.students-table td {
+    padding: 12px;
+    font-size: 13px;
+    text-align: left;
+}
+
+.students-table tbody tr:hover {
+    background: #f8f5ff;
+}
+
+.students-table tbody tr:nth-child(even) {
+    background: #fafafa;
+}
+
+.students-table tbody tr:nth-child(even):hover {
+    background: #f8f5ff;
+}
+
+.course-badge {
+    background: #ede9fe;
+    color: #4b2c80;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+.table-footer {
+    margin-top: 14px;
+    font-size: 13px;
+    color: #666;
+    text-align: right;
+}
+
+.no-data {
+    text-align: center;
+    color: #aaa;
+    font-style: italic;
+    padding: 30px !important;
+}
+
+/* ================= DASHBOARD BODY ================= */
+.dash-body {
+    display: flex;
+    gap: 18px;
+    padding: 18px;
+    background: #f0f0f0;
+    min-height: calc(100vh - 56px);
+    align-items: flex-start;
+    box-sizing: border-box;
+}
+
+.dash-card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.09);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.dash-card-header {
+    background: #6b21a8;
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 12px 16px;
+    letter-spacing: 0.3px;
+}
+
+.dash-card-body {
+    padding: 16px;
+    flex: 1;
+}
+
+/* Student Info */
+.dash-avatar {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0 14px;
+}
+
+.dash-avatar img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #6b21a8;
+}
+
+.dash-divider {
+    height: 1px;
+    background: #e5e5e5;
+    margin: 4px 0 12px;
+}
+
+.dash-info-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.dash-info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    color: #333;
+    line-height: 1.4;
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 8px;
+}
+
+.dash-info-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.dash-info-icon {
+    font-size: 14px;
+    margin-top: 1px;
+    flex-shrink: 0;
+}
+
+/* Announcements */
+.dash-announcements {
+    display: flex;
+    flex-direction: column;
+}
+
+.announcement-item {
+    padding: 14px 0;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.announcement-item:last-child {
+    border-bottom: none;
+}
+
+.announcement-meta {
+    font-weight: 700;
+    font-size: 13px;
+    color: #333;
+    margin: 0 0 6px;
+}
+
+.announcement-text {
+    font-size: 13px;
+    color: #555;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Rules */
+.dash-rules {
+    overflow-y: auto;
+    max-height: calc(100vh - 120px);
+    font-size: 13px;
+    color: #333;
+    line-height: 1.7;
+}
+
+.rules-university {
+    text-align: center;
+    font-size: 15px;
+    font-weight: 800;
+    margin: 0 0 4px;
+    color: #111;
+}
+
+.rules-college {
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: #333;
+    margin: 0 0 16px;
+    text-transform: uppercase;
+}
+
+.rules-title {
+    font-size: 13px;
+    font-weight: 800;
+    margin: 0 0 10px;
+    color: #111;
+}
+
+.rules-intro {
+    margin-bottom: 12px;
+}
+
+.dash-rules p {
+    margin: 0 0 10px;
+}
+
+/* Navbar Dropdown */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-toggle {
+    cursor: pointer;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    min-width: 180px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    z-index: 100;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: #333 !important;
+    text-decoration: none;
+    margin-left: 0 !important;
+}
+
+.dropdown-menu a:hover {
+    background: #f5f0ff;
+    color: #6b21a8 !important;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+/* ================= EDIT PROFILE LAYOUT ================= */
+.edit-profile-layout {
+    display: flex;
+    gap: 24px;
+    padding: 30px;
+    align-items: flex-start;
+    max-width: 1100px;
+    margin: 0 auto;
+    min-height: calc(100vh - 60px);
+}
+
+.info-card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    overflow: hidden;
+    flex: 1;
+}
+
+.info-card-header {
+    background: #6b21a8;
+    color: #fff;
+    text-align: center;
+    font-weight: 700;
+    font-size: 15px;
+    padding: 14px 0;
+    letter-spacing: 0.4px;
+}
+
+.info-card-body {
+    padding: 28px 24px;
+}
+
+/* Photo Upload */
+.avatar-preview-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 14px;
+}
+
+.avatar-preview-wrapper img {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #6b21a8;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+}
+
+.avatar-name {
+    text-align: center;
+    font-weight: 700;
+    font-size: 16px;
+    color: #222;
+    margin: 8px 0 2px;
+}
+
+.avatar-id {
+    text-align: center;
+    font-size: 13px;
+    color: #888;
+    margin: 0 0 20px;
+}
+
+.upload-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+#photoInput {
+    display: none;
+}
+
+.upload-label {
+    display: inline-block;
+    padding: 10px 22px;
+    background: #fff;
+    color: #6b21a8;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    border: 2px dashed #6b21a8;
+    width: 100%;
+    text-align: center;
+    transition: background 0.2s;
+    box-sizing: border-box;
+}
+
+.upload-label:hover {
+    background: #f5f0ff;
+}
+
+.upload-btn {
+    width: 100%;
+    padding: 11px 0;
+    background: #6b21a8;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.upload-btn:hover {
+    background: #581c87;
+}
+
+.upload-hint {
+    text-align: center;
+    font-size: 11px;
+    color: #aaa;
+    margin-top: 2px;
+}
+
+/* Edit Fields */
+.field-row {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 18px;
+}
+
+.field-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.field-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.field-input {
+    padding: 10px 13px;
+    border: 1.5px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #222;
+    background: #fff;
+    transition: border 0.2s;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.field-input:focus {
+    outline: none;
+    border-color: #6b21a8;
+}
+
+.field-input[readonly] {
+    background: #f5f5f5;
+    color: #aaa;
+    cursor: not-allowed;
+    border-color: #e0e0e0;
+}
+
+.save-btn {
+    padding: 11px 36px;
+    background: #6b21a8;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.save-btn:hover {
+    background: #581c87;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 900px) {
+    .dash-body {
+        flex-direction: column;
+    }
+    .dash-card {
+        flex: unset !important;
+        width: 100%;
+    }
+    .edit-profile-layout {
+        flex-direction: column;
+        padding: 16px;
+    }
+    .field-row {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 768px) {
+    .two-column {
+        grid-template-columns: 1fr;
+    }
+    .logo img {
+        width: 300px;
+        height: auto;
+    }
+    .login-box {
+        margin-left: 0;
+    }
+    .register-layout {
+        flex-direction: column;
+        align-items: center;
+    }
+}

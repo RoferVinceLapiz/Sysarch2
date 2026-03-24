@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard - CCS Sit-in Monitoring System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="dash-navbar">
+    <span class="dash-title">Dashboard</span>
+    <div class="dash-menu">
+        <div class="dropdown">
+            <a href="#" class="dropdown-toggle">Notification ▾</a>
+            <div class="dropdown-menu">
+                <a href="#">No new notifications</a>
+            </div>
+        </div>
+        <a href="/dashboard">Home</a>
+        <a href="/edit-profile">Edit Profile</a>
+        <a href="#">History</a>
+        <a href="#">Reservation</a>
+        <a href="/logout" class="logout-btn">Log out</a>
+    </div>
+</div>
+
+<!-- DASHBOARD BODY -->
+<div class="dash-body">
+
+    <!-- LEFT: Student Information -->
+    <div class="dash-card" style="flex: 0 0 220px;">
+        <div class="dash-card-header">👤 Student Information</div>
+        <div class="dash-card-body">
+
+            <div class="dash-avatar">
+                <img src="{{ url_for('static', filename='uploads/' + student['id_number'] + '.png') }}"
+                     alt="Avatar"
+                     onerror="this.src='https://ui-avatars.com/api/?name={{ student.first_name }}+{{ student.last_name }}&background=6b21a8&color=fff&size=120'">
+            </div>
+
+            <div class="dash-divider"></div>
+
+            <div class="dash-info-list">
+                <div class="dash-info-item">
+                    <span class="dash-info-icon">👤</span>
+                    <span><strong>Name:</strong> {{ student['first_name'] }} {{ student['middle_name'] }} {{ student['last_name'] }}</span>
+                </div>
+                <div class="dash-info-item">
+                    <span class="dash-info-icon">🎓</span>
+                    <span><strong>Course:</strong> {{ student['course'] }}</span>
+                </div>
+                <div class="dash-info-item">
+                    <span class="dash-info-icon">↕️</span>
+                    <span><strong>Year:</strong> {{ student['course_level'] }}</span>
+                </div>
+                <div class="dash-info-item">
+                    <span class="dash-info-icon">✉️</span>
+                    <span><strong>Email:</strong> {{ student['email'] }}</span>
+                </div>
+                <div class="dash-info-item">
+                    <span class="dash-info-icon">🏠</span>
+                    <span><strong>Address:</strong> {{ student['address'] }}</span>
+                </div>
+                <div class="dash-info-item">
+                    <span class="dash-info-icon">⏱️</span>
+                    <span><strong>Session:</strong> 30</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- MIDDLE: Announcement -->
+    <div class="dash-card" style="flex: 1;">
+        <div class="dash-card-header">📢 Announcement</div>
+        <div class="dash-card-body dash-announcements">
+
+            {% if announcements %}
+                {% for a in announcements %}
+                <div class="announcement-item">
+                    <p class="announcement-meta">CCS Admin | {{ a['posted_at'][:10] }}</p>
+                    <p class="announcement-text">{{ a['message'] }}</p>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p style="font-size:13px; color:#aaa;">No announcements yet.</p>
+            {% endif %}
+
+        </div>
+    </div>
+
+    <!-- RIGHT: Rules and Regulations -->
+    <div class="dash-card" style="flex: 1;">
+        <div class="dash-card-header">Rules and Regulation</div>
+        <div class="dash-card-body dash-rules">
+
+            <h3 class="rules-university">University of Cebu</h3>
+            <p class="rules-college">COLLEGE OF INFORMATION &amp; COMPUTER STUDIES</p>
+
+            <h4 class="rules-title">LABORATORY RULES AND REGULATIONS</h4>
+
+            <p class="rules-intro">To avoid embarrassment and maintain camaraderie with your friends and superiors at our laboratories, please observe the following:</p>
+
+            <p>1. Maintain silence, proper decorum, and discipline inside the laboratory. Mobile phones, walkmans and other personal pieces of equipment must be switched off.</p>
+            <p>2. Games are not allowed inside the lab. This includes computer-related games, card games and other games that may disturb the operation of the lab.</p>
+            <p>3. Surfing the Internet is allowed only with the permission of the instructor. Downloading and installing of software are strictly prohibited.</p>
+            <p>4. Food and drinks are strictly prohibited inside the laboratory.</p>
+            <p>5. Students are required to clean up after themselves. Do not leave any trash on the tables or floors.</p>
+            <p>6. Any damage to the equipment must be reported immediately to the laboratory administrator.</p>
+            <p>7. Students must log in and log out properly using the monitoring system.</p>
+            <p>8. Proper dress code must be observed at all times inside the laboratory.</p>
+            <p>9. Only authorized personnel are allowed to use the equipment and facilities.</p>
+            <p>10. Violation of these rules may result in disciplinary action.</p>
+            <p>11. For serious offense, the lab personnel may call the Civil Security Office (CSU) for assistance.</p>
+            <p>12. Any technical problem or difficulty must be addressed to the laboratory supervisor, student assistant or instructor immediately.</p>
+
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
